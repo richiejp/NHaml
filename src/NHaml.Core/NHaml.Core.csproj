@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,8 +12,6 @@
     <AssemblyName>NHaml.Core</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\NHaml.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -27,6 +25,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\NHaml.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,28 +35,23 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\NHaml.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugMono|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\DebugMono</OutputPath>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Web" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ast\AstNode.cs" />
-    <Compile Include="Ast\AttributeNode.cs" />
-    <Compile Include="Ast\CodeBlockNode.cs" />
-    <Compile Include="Ast\ChildrenNode.cs" />
-    <Compile Include="Ast\ChunkNodeBase.cs" />
-    <Compile Include="Ast\CodeChunk.cs" />
-    <Compile Include="Ast\CommentNode.cs" />
-    <Compile Include="Ast\DocTypeNode.cs" />
-    <Compile Include="Ast\DocumentNode.cs" />
-    <Compile Include="Ast\FilterNode.cs" />
-    <Compile Include="Ast\CodeNode.cs" />
-    <Compile Include="Ast\LateBindingNode.cs" />
-    <Compile Include="Ast\MetaNode.cs" />
     <Compile Include="Compilers\CSharp3ClassBuilder.cs" />
     <Compile Include="Compilers\CSharpClassBuilder.cs" />
     <Compile Include="Compilers\IClassBuilder.cs" />
@@ -70,10 +65,6 @@
     <Compile Include="Configuration\NHamlConfigurationSection.cs" />
     <Compile Include="Exceptions\TemplateCompilationException.cs" />
     <Compile Include="IO\SourceInfo.cs" />
-    <Compile Include="Ast\TagNode.cs" />
-    <Compile Include="Ast\TextChunk.cs" />
-    <Compile Include="Ast\TextNode.cs" />
-    <Compile Include="Ast\NodeVisitorBase.cs" />
     <Compile Include="Exceptions\ParserException.cs" />
     <Compile Include="IO\CharacterReader.cs" />
     <Compile Include="IO\InputLine.cs" />
@@ -115,8 +106,26 @@
     <Compile Include="Visitors\IPartialRenderMethod.cs" />
     <Compile Include="Visitors\MetaDataFiller.cs" />
     <Compile Include="Visitors\WebFormsVisitor.cs" />
+    <Compile Include="AST\AstNode.cs" />
+    <Compile Include="AST\AttributeNode.cs" />
+    <Compile Include="AST\CodeBlockNode.cs" />
+    <Compile Include="AST\ChildrenNode.cs" />
+    <Compile Include="AST\ChunkNodeBase.cs" />
+    <Compile Include="AST\CodeChunk.cs" />
+    <Compile Include="AST\CommentNode.cs" />
+    <Compile Include="AST\DocTypeNode.cs" />
+    <Compile Include="AST\DocumentNode.cs" />
+    <Compile Include="AST\FilterNode.cs" />
+    <Compile Include="AST\CodeNode.cs" />
+    <Compile Include="AST\LateBindingNode.cs" />
+    <Compile Include="AST\MetaNode.cs" />
+    <Compile Include="AST\TagNode.cs" />
+    <Compile Include="AST\TextChunk.cs" />
+    <Compile Include="AST\TextNode.cs" />
+    <Compile Include="AST\NodeVisitorBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

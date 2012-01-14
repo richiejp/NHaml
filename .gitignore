@@ -9,3 +9,4 @@ bin/
 obj/
 
 *.dotCover
+*.pidb
