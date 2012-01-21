@@ -12,7 +12,7 @@ namespace NHaml4
 {
     public  class TemplateEngine
     {
-        private readonly Dictionary<string, TemplateFactory> _compiledTemplateCache;
+        private readonly ITemplateFactoryCache _compiledTemplateCache;
         private readonly ITemplateFactoryFactory _templateFactoryFactory;
 
         public TemplateEngine(HamlOptions hamlOptions)
@@ -22,10 +22,16 @@ namespace NHaml4
                     new CodeDomTemplateCompiler(new CSharp2TemplateTypeBuilder())))
         { }
 
-        public TemplateEngine(ITemplateFactoryFactory templateFactoryFactory)
+      public TemplateEngine(ITemplateFactoryFactory templateFactoryFactory)
+      : this(templateFactoryFactory, new DefaultTemplateFactoryCache())
+      {
+	
+      }
+
+      public TemplateEngine(ITemplateFactoryFactory templateFactoryFactory, ITemplateFactoryCache cache)
         {
             _templateFactoryFactory = templateFactoryFactory;
-            _compiledTemplateCache = new Dictionary<string, TemplateFactory>();
+            _compiledTemplateCache = cache;
         }
 
         public TemplateFactory GetCompiledTemplate(ITemplateContentProvider contentProvider, string templatePath, Type baseType)
@@ -47,21 +53,8 @@ namespace NHaml4
             Invariant.ArgumentNotNull(templateBaseType, "templateBaseType");
 
             templateBaseType = ProxyExtracter.GetNonProxiedType(templateBaseType);
-            var className = viewSource.GetClassName();
-                
-            TemplateFactory compiledTemplate;
 
-            lock( _compiledTemplateCache )
-            {
-                if (!_compiledTemplateCache.TryGetValue(className, out compiledTemplate))
-                {
-                    compiledTemplate = _templateFactoryFactory.CompileTemplateFactory(className, viewSource);
-                    _compiledTemplateCache.Add(className, compiledTemplate);
-                    return compiledTemplate;
-                }
-            }
-
-            return compiledTemplate;
+	    return _compiledTemplateCache.GetOrAdd(viewSource, _templateFactoryFactory); 
         }
     }
 }

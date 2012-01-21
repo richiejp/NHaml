@@ -135,6 +135,8 @@
     <Compile Include="Compilers\CSharp2\CSharp2TemplateTypeBuilder.cs" />
     <Compile Include="TemplateResolution\IViewSource.cs" />
     <Compile Include="Compilers\CSharp2\CSharp2TemplateClassBuilder.cs" />
+    <Compile Include="ITemplateFactoryCache.cs" />
+    <Compile Include="DefaultTemplateFactoryCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\NHaml.snk">
